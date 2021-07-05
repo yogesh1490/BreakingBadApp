@@ -25,7 +25,7 @@ const Favourites = props => {
 
   useEffect(() => {
     //get favourites
-    props.getFavouritesActions.getFavouritesAction();
+    props.getFavouritesActions.getFavouritesAction(0, false);
   }, []);
 
   const renderTitleBar = () => (

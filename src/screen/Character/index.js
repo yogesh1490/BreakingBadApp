@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   Image,
   Keyboard,
+  ToastAndroid,
 } from 'react-native';
 import Icons from 'react-native-vector-icons/AntDesign';
 import IconSearch from 'react-native-vector-icons/Feather';
@@ -23,7 +24,6 @@ import Strings from '../../resource/Strings';
 import CharacterView from '../CharacterView';
 
 import colors from '../../resource/colors';
-const {width} = Dimensions.get('window');
 
 const Character = props => {
   const inputs = [];
@@ -39,7 +39,7 @@ const Character = props => {
 
   useEffect(() => {
     //get favourites
-    props.getFavouritesActions.getFavouritesAction();
+    props.getFavouritesActions.getFavouritesAction(0, false);
   }, []);
 
   const clearSearch = () => {
@@ -50,28 +50,29 @@ const Character = props => {
     Keyboard.dismiss();
   };
 
-  const removeItem = (array, removeElement) => {
-    const index = array.indexOf(removeElement);
-    if (index > -1) {
-      array.splice(index, 1);
-    }
-    console.log(array);
-  };
+  // const removeItem = (array, removeElement) => {
+  //   const index = array.indexOf(removeElement);
+  //   if (index > -1) {
+  //     array.splice(index, 1);
+  //   }
+  //   console.log(array);
+  // };
   const onFavouriteClick = async id => {
     console.log('FAVOURITES: ID: ', id);
 
-    favourite = await AsyncStorage.getItem('APP_FAVORITES');
-    console.log('FAVOURITES: ID:2 ', JSON.parse(favourite));
-    favourite = favourite ? JSON.parse(favourite) : [];
+    // favourite = await AsyncStorage.getItem('APP_FAVORITES');
+    // console.log('FAVOURITES: ID:2 ', JSON.parse(favourite));
+    // favourite = favourite ? JSON.parse(favourite) : [];
 
-    favourite.includes(id) ? removeItem(favourite, id) : favourite.push(id);
+    // favourite.includes(id) ? removeItem(favourite, id) : favourite.push(id);
 
-    console.log(
-      'FAVOURITES: ID:1 ',
-      JSON.stringify(favourite.length > 0 ? favourite : ''),
-    );
-    AsyncStorage.setItem('APP_FAVORITES', JSON.stringify(favourite));
-    props.getFavouritesActions.getFavouritesAction();
+    // console.log(
+    //   'FAVOURITES: ID:1 ',
+    //   JSON.stringify(favourite.length > 0 ? favourite : ''),
+    // );
+    // AsyncStorage.setItem('APP_FAVORITES', JSON.stringify(favourite));
+
+    props.getFavouritesActions.getFavouritesAction(id, true);
   };
 
   const searchFilterFunction = searchTxt => {
